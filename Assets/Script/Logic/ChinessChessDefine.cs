@@ -5,14 +5,14 @@ namespace cn.styxs.ChineseChess
 {
 
     public enum ChessKind {
-        Unkown, // 空
-        King,   // 将/帅
-        Shi,    // 士/仕
-        Xiang,  // 象/相
+        Ju,     // 车
         Ma,     // 马
         Pao,    // 砲/炮
-        Ju,     // 车
-        Soldier // 卒/兵
+        Xiang,  // 象/相
+        Shi,    // 士/仕
+        King,   // 将/帅
+        Soldier,// 卒/兵
+        Unkown  // 空
     }
 
     public enum ChessPlayer {

@@ -7,6 +7,7 @@ public class ChineseChessLogic {
     private const int kRow = 10, kColumn = 9;
     // 此棋盘以红方为下(0-4)，黑方为上(5-9)
     // 棋盘中Chess的Location均为null，向外界返回时才设置为当前的位置
+    ArrayList chessPieces = new ArrayList();
     private Chess[][] board = new Chess[kRow][];
     public ChineseChessLogic() {
         init();
@@ -14,7 +15,7 @@ public class ChineseChessLogic {
     public Chess getChess(Location loc) {
         Chess chess = board[loc.x][loc.y];
         if (chess != null) {
-            return Chess.Make(chess, loc);
+            return Chess.remake(chess, loc);
         }
         else {
             return null;
@@ -46,25 +47,42 @@ public class ChineseChessLogic {
         }
         return true;
     }
+    private bool canMoveChessWithoutKingLooking(Chess chess, Location moveTo) {
+        
+        return true;
+    }
     public bool canMoveChess(Chess chess, Location moveTo) {
         if (!isLegal(chess)) {
             return false;
         }
-        return chess.canMoveTo(this.board, moveTo);
+        return chess.canMoveTo(this.board, moveTo) && canMoveChessWithoutKingLooking(chess, moveTo);
     }
     public void moveChess(Chess chess, Location moveTo) {
+        // 判断是否可以移动
         if (!(canMoveChess(chess, moveTo) && chess.belongTo == currentRound)) {
             return;
         }
-        
 
+        notifyMove(chess.location, moveTo, chess.kind);
+        if (board[moveTo.x][moveTo.y] != null) {
+            // 吃子
+        }
+        board[chess.location.x][chess.location.y] = null;
+        board[moveTo.x][moveTo.y] = Chess.remake(chess, null);
+
+        if (currentRound == ChessPlayer.Red) {
+            currentRound = ChessPlayer.Black;
+        } else {
+            currentRound = ChessPlayer.Red;
+        }
+        notifyNextRound(currentRound);
     }
     
     private void _init(ChessPlayer p) {
         if (p == ChessPlayer.Unkown) {
             return;
         }
-        int AssistIndex1 = 3, AssistIndex2 = 4, AssistIndex3 = 5, AssistIndex4 = 6;
+        int AssistIndex1 = 4, AssistIndex2 = 4, AssistIndex3 = 5, AssistIndex4 = 6;
         Chess[] AssistChessArray = {
             new Chess(p, ChessKind.Ju, null),
             new Chess(p, ChessKind.Ma, null),
@@ -78,9 +96,12 @@ public class ChineseChessLogic {
         int row1 = p == ChessPlayer.Red ? 0 : kRow - 1;
         for (int i = 0; i < AssistIndex1; i++) {
             this.board[row1][i] = AssistChessArray[i];
+            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(row1, i)));
             this.board[row1][kColumn - 1 - i] = AssistChessArray[i];
+            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(row1, kColumn- 1 - i)));
         }
         this.board[row1][(kColumn - 1) / 2] = AssistChessArray[AssistIndex2];
+        chessPieces.Add(Chess.remake(AssistChessArray[AssistIndex2], new Location(row1, (kColumn - 1)/2)));
         // 炮
         int row2 = p == ChessPlayer.Red ? 2 : kRow - 3;
         this.board[row2][1] = AssistChessArray[AssistIndex3];
