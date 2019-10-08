@@ -15,12 +15,14 @@ public class ChessPieces : MonoBehaviour, IPointInterface {
 
     void IPointInterface.ChessMoveIn(Chess chess) {
         this.currentChess = chess;
+        this.pickup = false;
         setSprite(ChessSpriteFactory.getInstance().getChessSprite(chess));
     }
 
     void IPointInterface.ChessMoveOut() {
         currentChess = null;
         setSprite(null);
+        pickUpOrLayDown(false);
     }
 
     void IPointInterface.setChess(Chess chess) {
@@ -52,6 +54,15 @@ public class ChessPieces : MonoBehaviour, IPointInterface {
 		
 	}
 
+    private void pickUpOrLayDown(bool up) {
+        if (currentChess != null && up) {
+            this.transform.position += pickupOffset;
+        }
+        else {
+            this.transform.position -= pickupOffset;
+        }
+    }
+
     public void OnMouseDown() {
         if (!center.click(location)) {
             // 选择棋子
@@ -61,14 +72,14 @@ public class ChessPieces : MonoBehaviour, IPointInterface {
                         return;
                     }
                     // cancel pickup
-                    this.transform.position -= pickupOffset;
+                    pickUpOrLayDown(false);
                 }
                 else {
                     if (!center.chessPickUp(currentChess)) {
                         return;
                     }
                     // pick up
-                    this.transform.position += pickupOffset;
+                    pickUpOrLayDown(true);
                 }
                 pickup = !pickup;
             }

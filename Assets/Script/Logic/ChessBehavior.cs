@@ -89,8 +89,8 @@ namespace cn.styxs.ChineseChess {
 
         public override bool canMoveTo(Chess[][] board, Location moveTo) {
             if (isMoveLegal(moveTo)) {
-                int xOffset = this.location.x - moveTo.x;
-                int yOffset = this.location.y - moveTo.y;
+                int xOffset = moveTo.x - this.location.x;
+                int yOffset = moveTo.y - this.location.y;
                 if ((xOffset == 2 || xOffset == -2) && (yOffset == 2 || yOffset == -2)) {
                     if(checkNull(board, xOffset/2, yOffset/2)) {
                         // 象不能过河
