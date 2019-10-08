@@ -51,7 +51,7 @@ public class Controller : MonoBehaviour, IStateChange, IControllerInterface {
         return null;
     }
     bool IControllerInterface.click(Vector2Int position) {
-        if (currentPickupChess != null) {
+        if (currentPickupChess != null && !isVectorEqualToLocation(position, currentPickupChess.location)) {
             Location moveTo = new Location(position.x, position.y);
             if (game.canMoveChess(currentPickupChess, moveTo)) {
                 IPointInterface p1 = findFirstPointResponder(points[currentPickupChess.location.x][currentPickupChess.location.y]);
@@ -114,4 +114,16 @@ public class Controller : MonoBehaviour, IStateChange, IControllerInterface {
 	void Update () {
 		
 	}
+
+    private Vector2Int locationToVector(Location loc) {
+        return new Vector2Int(loc.x, loc.y);
+    }
+
+    private Location vectorToLocation(Vector2Int vec) {
+        return new Location(vec.x, vec.y);
+    }
+
+    private bool isVectorEqualToLocation(Vector2Int vec, Location loc) {
+        return vec.x == loc.x && vec.y == loc.y;
+    }
 }
