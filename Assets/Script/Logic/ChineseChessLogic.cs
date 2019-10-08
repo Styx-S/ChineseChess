@@ -38,7 +38,7 @@ public class ChineseChessLogic {
         }
     }
 
-    private ChessPlayer currentRound;
+    private ChessPlayer currentRound = ChessPlayer.Red;
     // 该棋子是否为棋盘上正确位置的棋子
     public bool isLegal(Chess chess) {
         int x = chess.location.x, y = chess.location.y;
@@ -55,11 +55,11 @@ public class ChineseChessLogic {
         if (!isLegal(chess)) {
             return false;
         }
-        return chess.canMoveTo(this.board, moveTo) && canMoveChessWithoutKingLooking(chess, moveTo);
+        return chess.canMoveTo(this.board, moveTo) && canMoveChessWithoutKingLooking(chess, moveTo) && chess.belongTo == currentRound;
     }
     public void moveChess(Chess chess, Location moveTo) {
         // 判断是否可以移动
-        if (!(canMoveChess(chess, moveTo) && chess.belongTo == currentRound)) {
+        if (!canMoveChess(chess, moveTo)) {
             return;
         }
 
@@ -95,23 +95,23 @@ public class ChineseChessLogic {
         // 车马炮象士将
         int row1 = p == ChessPlayer.Red ? 0 : kRow - 1;
         for (int i = 0; i < AssistIndex1; i++) {
-            this.board[row1][i] = AssistChessArray[i];
-            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(row1, i)));
-            this.board[row1][kColumn - 1 - i] = AssistChessArray[i];
-            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(row1, kColumn- 1 - i)));
+            this.board[i][row1] = AssistChessArray[i];
+            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(i, row1)));
+            this.board[kColumn - 1 - i][row1] = AssistChessArray[i];
+            chessPieces.Add(Chess.remake(AssistChessArray[i], new Location(kColumn - 1 - i, row1)));
         }
-        this.board[row1][(kColumn - 1) / 2] = AssistChessArray[AssistIndex2];
-        chessPieces.Add(Chess.remake(AssistChessArray[AssistIndex2], new Location(row1, (kColumn - 1)/2)));
+        this.board[(kColumn - 1) / 2][row1] = AssistChessArray[AssistIndex2];
+        chessPieces.Add(Chess.remake(AssistChessArray[AssistIndex2], new Location((kColumn - 1)/2, row1)));
         // 炮
         int row2 = p == ChessPlayer.Red ? 2 : kRow - 3;
-        this.board[row2][1] = AssistChessArray[AssistIndex3];
-        this.board[row2][kColumn - 2] = AssistChessArray[AssistIndex3];
+        this.board[1][row2] = AssistChessArray[AssistIndex3];
+        this.board[kColumn - 2][row2] = AssistChessArray[AssistIndex3];
         // 卒
         int row3 = p == ChessPlayer.Red ? 3 : kRow - 4;
         bool set = true;
         for (int i = 0; i < kColumn; i++) {
             if (set) {
-                this.board[row3][i] = AssistChessArray[AssistIndex4];
+                this.board[i][row3] = AssistChessArray[AssistIndex4];
             }
             set = !set;
         }
@@ -120,8 +120,8 @@ public class ChineseChessLogic {
 
     // 初始化棋盘
     private void init() {
-        for (int i = 0; i < kRow; i++) {
-            this.board[i] = new Chess[kColumn];
+        for (int i = 0; i < kColumn; i++) {
+            this.board[i] = new Chess[kRow];
         }
         _init(ChessPlayer.Red);
         _init(ChessPlayer.Black);
