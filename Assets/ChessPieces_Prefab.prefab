@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4022858546171250}
-  - component: {fileID: 135507955629541958}
   - component: {fileID: 212450935584893532}
   - component: {fileID: 114790540764216796}
+  - component: {fileID: 58068477684675178}
   m_Layer: 0
   m_Name: ChessPieces_Prefab
   m_TagString: Untagged
@@ -42,6 +42,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58068477684675178
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515785027643272}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &114790540764216796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,18 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25791000797a497479d7150350df84e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135507955629541958
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1515785027643272}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212450935584893532
 SpriteRenderer:
   m_ObjectHideFlags: 1

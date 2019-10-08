@@ -313,7 +313,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1711405946}
-  - component: {fileID: 1711405947}
   - component: {fileID: 1711405945}
   m_Layer: 0
   m_Name: _GameplayLogic
@@ -351,29 +350,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1711405947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1711405944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c780f3184c08244a89d3672e12f3f11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: d34f874576155f34694f136eeb8b83d8, type: 3}
-  - {fileID: 21300000, guid: cb8f2f33844bb6a468366570cdabf8ae, type: 3}
-  - {fileID: 21300000, guid: 1ed0452932d823f4a968402f844a5b2d, type: 3}
-  - {fileID: 21300000, guid: 140741913d46d8b48a6d46e03b6601c0, type: 3}
-  - {fileID: 21300000, guid: a7412eb963cfde94b91cab52ed6d180c, type: 3}
-  - {fileID: 21300000, guid: 42c67d4bda989f24580209f9e3730c81, type: 3}
-  - {fileID: 21300000, guid: 92bb2b112fc9edf41ab153dd0cda49fd, type: 3}
-  - {fileID: 21300000, guid: 30a0bda45f487a043ae0f75d779040d6, type: 3}
-  - {fileID: 21300000, guid: 05d70a7324615b34dbaa0f1393005581, type: 3}
-  - {fileID: 21300000, guid: 3632a4a3d283b284daf14ff89765d668, type: 3}
-  - {fileID: 21300000, guid: e7b85c469cb2dda44ab57057a8f378b9, type: 3}
-  - {fileID: 21300000, guid: 74aaa1330161f514190e9a086f3e4bed, type: 3}
-  - {fileID: 21300000, guid: ee802cd203837d642908460eeb87dfdb, type: 3}
-  - {fileID: 21300000, guid: a7804848a493a2842b434b002d654913, type: 3}
