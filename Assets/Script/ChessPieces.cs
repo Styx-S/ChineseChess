@@ -53,26 +53,25 @@ public class ChessPieces : MonoBehaviour, IPointInterface {
 	}
 
     public void OnMouseDown() {
-        Debug.Log("" + location + " click");
-        if (currentChess != null) {
-            if (pickup) {
-                if (!center.chessLayDown(currentChess)) {
-                    return;
+        if (!center.click(location)) {
+            // 选择棋子
+            if (currentChess != null) {
+                if (pickup) {
+                    if (!center.chessLayDown(currentChess)) {
+                        return;
+                    }
+                    // cancel pickup
+                    this.transform.position -= pickupOffset;
                 }
-                // cancel pickup
-                this.transform.position -= pickupOffset;
-            }
-            else {
-                if (!center.chessPickUp(currentChess)) {
-                    return;
+                else {
+                    if (!center.chessPickUp(currentChess)) {
+                        return;
+                    }
+                    // pick up
+                    this.transform.position += pickupOffset;
                 }
-                // pick up
-                this.transform.position += pickupOffset;
+                pickup = !pickup;
             }
-            pickup = !pickup;
-        }
-        else {
-            center.click(location);
         }
     }
 }

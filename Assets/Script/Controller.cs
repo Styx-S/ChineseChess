@@ -15,7 +15,8 @@ public interface IPointInterface {
 public interface IControllerInterface {
     bool chessPickUp(Chess chess);
     bool chessLayDown(Chess chess);
-    void click(Vector2Int pointLocation);
+    // click的两种情况：选择棋子，选择位置（吃子）；这里认为选择位置才是click
+    bool click(Vector2Int pointLocation);
 }
 
 public class Controller : MonoBehaviour, IStateChange, IControllerInterface {
@@ -49,7 +50,7 @@ public class Controller : MonoBehaviour, IStateChange, IControllerInterface {
         }
         return null;
     }
-    void IControllerInterface.click(Vector2Int position) {
+    bool IControllerInterface.click(Vector2Int position) {
         if (currentPickupChess != null) {
             Location moveTo = new Location(position.x, position.y);
             if (game.canMoveChess(currentPickupChess, moveTo)) {
@@ -64,10 +65,18 @@ public class Controller : MonoBehaviour, IStateChange, IControllerInterface {
                     currentPickupChess = null;
                 }
             }
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
     bool IControllerInterface.chessPickUp(Chess chess) {
+        // 如果不是自己回合，那么棋子不能被抬起
+        if (game.getCurrentRound() != chess.belongTo) {
+            return false;
+        }
         currentPickupChess = chess;
         return true;
     }

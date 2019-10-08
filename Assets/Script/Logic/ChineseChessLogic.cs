@@ -39,6 +39,9 @@ public class ChineseChessLogic {
     }
 
     private ChessPlayer currentRound = ChessPlayer.Red;
+    public ChessPlayer getCurrentRound() {
+        return currentRound;
+    }
     // 该棋子是否为棋盘上正确位置的棋子
     public bool isLegal(Chess chess) {
         int x = chess.location.x, y = chess.location.y;
